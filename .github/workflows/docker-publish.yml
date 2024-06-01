@@ -25,12 +25,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Docker image
-        run: docker build -t karimamahgoune123/myprojectcicd .
-
-      - name: Push Docker image
-        run: docker push karimamahgoune123/myprojectcicd
-
       - name: Run make
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make
 
