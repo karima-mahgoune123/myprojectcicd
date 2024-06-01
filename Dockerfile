@@ -14,6 +14,9 @@ RUN mkdir -p /usr/src/myapp/qemu
 # Copier l'application QEMU dans le répertoire créé
 COPY qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
 
+# Donner les permissions d'exécution au fichier QEMU
+RUN chmod +x /usr/src/myapp/qemu/qemu-system-arm.exe
+
 # Définir le répertoire de travail
 WORKDIR /usr/src/myapp
 
