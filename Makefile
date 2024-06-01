@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -Wall -g -I/usr/include
 
 # Définir les fichiers objets
-OBJ = src/SWC.o src/TestProtocol.o
+OBJ = SWC.o TestProtocol.o
 
 # Définir la cible
 TARGET = my_project.bin
@@ -20,7 +20,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 test:
-	./$(TARGET)
+	./my_project.bin
 
 clean:
 	rm -f $(OBJ) $(TARGET)
