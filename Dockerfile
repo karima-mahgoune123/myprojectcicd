@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     qemu-system-arm
 
 # Définir le répertoire de travail
-WORKDIR /usr/src/myapp
+WORKDIR /Users/HP/myprojectcicd
 
 # Copier les fichiers source dans le conteneur
 COPY . .
