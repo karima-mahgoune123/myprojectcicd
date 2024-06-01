@@ -26,4 +26,4 @@ RUN gcc -Wall -g -I/usr/include -c TestProtocol.c -o TestProtocol.o
 RUN gcc -Wall -g -o my_project.bin SWC.o TestProtocol.o -L/usr/lib -lcunit
 
 # Commande par défaut pour émuler le firmware
-CMD ["/qemu/qemu-system-arm.exe", "-M", "versatilepb", "-kernel", "my_project.bin", "-nographic", "-serial", "mon:stdio", "-display", "none"]
+CMD ["/usr/src/myapp/qemu/qemu-system-arm.exe", "-M", "versatilepb", "-kernel", "my_project.bin", "-nographic", "-serial", "mon:stdio", "-display", "none"]
