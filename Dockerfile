@@ -9,6 +9,12 @@ RUN apt-get update && apt-get install -y \
     libcunit1 libcunit1-doc libcunit1-dev \
     qemu-system-arm
 
+# Créer un répertoire pour stocker le binaire QEMU
+RUN mkdir -p /usr/src/myapp/qemu
+
+# Copier le binaire QEMU dans le répertoire de travail du conteneur Docker
+COPY qemu/qemu-system-arm /usr/src/myapp/qemu/qemu-system-arm
+
 # Définir le répertoire de travail
 WORKDIR /Users/HP/myprojectcicd
 
@@ -23,4 +29,4 @@ RUN gcc -Wall -g -I/usr/include -c TestProtocol.c -o TestProtocol.o
 RUN gcc -Wall -g -o my_project.bin SWC.o TestProtocol.o -L/usr/lib -lcunit
 
 # Commande par défaut pour émuler le firmware
-CMD ["qemu-system-arm", "-M", "versatilepb", "-kernel", "my_project.bin", "-nographic", "-serial", "mon:stdio", "-display", "none"]
+CMD ["qemu-system-arm", "-M", "versatilepb", "-kernel", "my_project.bin", "-nographic"]
