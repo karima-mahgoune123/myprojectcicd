@@ -6,16 +6,15 @@ RUN apt-get update && apt-get install -y \
     gcc \
     make \
     cmake \
-    libcunit1 libcunit1-doc libcunit1-dev \
-    qemu-system-arm
+    libcunit1 libcunit1-doc libcunit1-dev
 
-# Créer un répertoire pour stocker le binaire QEMU
+# Créer un répertoire pour stocker l'application QEMU
 RUN mkdir -p /usr/src/myapp/qemu
 
-# Copier le fichier QEMU dans le répertoire créé
-COPY C:/Users/HP/qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
+# Copier l'application QEMU dans le répertoire créé
+COPY qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
 
-# Attribuer les permissions d'exécution
+# Donner les permissions d'exécution au fichier QEMU
 RUN chmod +x /usr/src/myapp/qemu/qemu-system-arm.exe
 
 # Définir le répertoire de travail
