@@ -38,7 +38,7 @@ jobs:
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make test
 
       - name: Emulate my_project.bin
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none
+        run: docker run --rm -v C:\Users\HP\myprojectcicd:/usr/src/myapp -w /usr/src/myapp myprojectcicd qemu-system-arm -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none -soundhw none
 
       - name: List files
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l
