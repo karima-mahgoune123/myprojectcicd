@@ -16,7 +16,7 @@ RUN mkdir -p /usr/src/myapp/qemu
 COPY . .
 
 # Copier le fichier QEMU dans le répertoire créé
-COPY qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
+COPY /Users/HP/qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
 
 # Compiler les fichiers source
 RUN gcc -Wall -g -I/usr/include -c SWC.c -o SWC.o
