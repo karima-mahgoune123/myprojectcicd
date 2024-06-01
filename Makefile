@@ -5,10 +5,10 @@ CC = gcc
 CFLAGS = -Wall -g -I/usr/include
 
 # Définir les fichiers objets
-OBJ = SWC.o TestProtocol.o
+OBJ = src/SWC.o src/TestProtocol.o
 
 # Définir la cible
-TARGET = myprojectcicd.bin
+TARGET = my_project.bin
 
 # Règles de compilation
 all: $(TARGET)
@@ -20,7 +20,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 test:
-	./myprojectcicd.bin
+	./$(TARGET)
 
 clean:
 	rm -f $(OBJ) $(TARGET)

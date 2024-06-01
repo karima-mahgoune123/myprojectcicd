@@ -1,4 +1,4 @@
-name: Build and Test MY_PROJECT
+name: Build, Test, and Virtual Deploy MY_PROJECT
 
 on:
   push:
@@ -8,7 +8,11 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -21,23 +25,26 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Build Docker image
-        run: docker build -t myprojectcicd .
+        run: docker build -t karimamahgoune123/myprojectcicd .
+
+      - name: Push Docker image
+        run: docker push karimamahgoune123/myprojectcicd
 
       - name: Run make
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp myprojectcicd make
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make
 
       - name: Run tests
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp myprojectcicd make test
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make test
+
+      - name: Emulate my_project.bin
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none
 
       - name: List files
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp myprojectcicd ls -l
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l
 
-      - name: Upload myprojectcicd.bin as artifact
+      - name: Upload my_project.bin as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: myprojectcicd.bin
-          path: myprojectcicd.bin
+          name: my_project.bin
+          path: /usr/src/myapp/my_project.bin
