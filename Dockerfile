@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /usr/src/myapp/qemu
 
 # Copier l'application QEMU dans le répertoire créé
-COPY qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
+COPY "/Program Files/qemu/qemu-system-arm.exe" /usr/src/myapp/qemu/qemu-system-arm.exe
 
 # Définir le répertoire de travail
 WORKDIR /usr/src/myapp
