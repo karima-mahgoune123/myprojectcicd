@@ -9,14 +9,17 @@ RUN apt-get update && apt-get install -y \
     libcunit1 libcunit1-doc libcunit1-dev \
     qemu-system-arm
 
-# Créer un répertoire pour stocker les fichiers QEMU sur le système hôte Windows
+# Créer un répertoire pour stocker l'application QEMU
 RUN mkdir -p /usr/src/myapp/qemu
+
+# Copier l'application QEMU dans le répertoire créé
+COPY qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
+
+# Définir le répertoire de travail
+WORKDIR /usr/src/myapp
 
 # Copier les fichiers source dans le conteneur
 COPY . .
-
-# Copier le fichier QEMU dans le répertoire créé
-COPY /Users/HP/qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
 
 # Compiler les fichiers source
 RUN gcc -Wall -g -I/usr/include -c SWC.c -o SWC.o
@@ -26,4 +29,4 @@ RUN gcc -Wall -g -I/usr/include -c TestProtocol.c -o TestProtocol.o
 RUN gcc -Wall -g -o my_project.bin SWC.o TestProtocol.o -L/usr/lib -lcunit
 
 # Commande par défaut pour émuler le firmware
-CMD ["/usr/src/myapp/qemu/qemu-system-arm.exe", "-M", "versatilepb", "-kernel", "my_project.bin", "-nographic", "-serial", "mon:stdio", "-display", "none"]
+CMD ["/usr/src/myapp/qemu/qemu-system-arm", "-M", "versatilepb", "-kernel", "my_project.bin", "-nographic", "-serial", "mon:stdio", "-display", "none"]
