@@ -49,8 +49,14 @@ jobs:
       - name: Verify my_project.bin presence
         run: docker run --rm -v /home/runner/work/myprojectcicd/myprojectcicd:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l my_project.bin
 
+      - name: Verify my_project.bin file type
+        run: docker run --rm -v /home/runner/work/myprojectcicd/myprojectcicd:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd file my_project.bin
+
       - name: Emulate my_project.bin with debug
         run: docker run --rm -v /home/runner/work/myprojectcicd/myprojectcicd:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -M virt -kernel my_project.bin -nographic -serial mon:stdio -display none -d unimp
+
+      - name: Emulate my_project.bin with minimal options
+        run: docker run --rm -v /home/runner/work/myprojectcicd/myprojectcicd:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -M virt -kernel my_project.bin -nographic
 
       - name: List files
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l
