@@ -43,5 +43,17 @@ jobs:
       - name: Check file type
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd file /usr/src/myapp/qemu/qemu-system-arm.exe
 
+      - name: List supported machines
+        run: docker run --rm -v /home/runner/work/myprojectcicd/myprojectcicd:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -machine help
+
       - name: Emulate my_project.bin
-        run: docker run --rm -v /home/runner/work/myprojectcicd/myprojectcicd:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -M versatilep
+        run: docker run --rm -v /home/runner/work/myprojectcicd/myprojectcicd:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none -device none
+
+      - name: List files
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l
+
+      - name: Upload my_project.bin as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: my_project.bin
+          path: /usr/src/myapp/my_project.bin
