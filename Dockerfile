@@ -21,6 +21,9 @@ COPY qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
 # Rendre le fichier QEMU exécutable
 RUN chmod +x /usr/src/myapp/qemu/qemu-system-arm.exe
 
+# Vérifier les permissions du fichier QEMU
+RUN ls -l /usr/src/myapp/qemu/qemu-system-arm.exe
+
 # Compiler les fichiers source
 RUN gcc -Wall -g -I/usr/include -c SWC.c -o SWC.o
 RUN gcc -Wall -g -I/usr/include -c TestProtocol.c -o TestProtocol.o

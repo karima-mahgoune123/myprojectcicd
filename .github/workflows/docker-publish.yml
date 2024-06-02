@@ -37,6 +37,12 @@ jobs:
       - name: Run tests
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make test
 
+      - name: Fix permissions
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd chmod +x /usr/src/myapp/qemu/qemu-system-arm.exe
+
+      - name: Debug permissions
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l /usr/src/myapp/qemu
+
       - name: Emulate my_project.bin
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd /usr/src/myapp/qemu/qemu-system-arm.exe -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none
 
