@@ -26,28 +26,28 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image for ARM
-        run: docker buildx build --platform linux/arm/v7 -t karimamahgoune123/myprojectcicd:arm .
+        run: docker buildx build --platform linux/arm/v7 -t karimamahgoune123/myprojectcicd .
 
       - name: Push Docker image for ARM
-        run: docker push karimamahgoune123/myprojectcicd:arm
+        run: docker push karimamahgoune123/myprojectcicd
 
       - name: Run make
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd:arm make
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make
 
       - name: Run tests
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd:arm make test
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make test
 
       - name: Verify my_project.bin presence
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd:arm ls -l my_project_arm.bin
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l my_project_arm.bin
 
       - name: Verify my_project.bin file type
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd:arm file my_project_arm.bin
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd file my_project_arm.bin
 
       - name: Emulate my_project.bin with QEMU for ARM
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd:arm qemu-arm ./my_project_arm.bin
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-arm ./my_project_arm.bin
 
       - name: List files
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd:arm ls -l
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l
 
       - name: Upload my_project.bin as artifact
         uses: actions/upload-artifact@v3
