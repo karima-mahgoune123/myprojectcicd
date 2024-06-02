@@ -43,11 +43,11 @@ jobs:
       - name: Debug permissions
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l /usr/src/myapp/qemu
 
+      - name: Check file type
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd file /usr/src/myapp/qemu/qemu-system-arm.exe
+
       - name: Emulate my_project.bin
-        run: |
-          docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l /usr/src/myapp/qemu/qemu-system-arm.exe
-          docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd file /usr/src/myapp/qemu/qemu-system-arm.exe
-          docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd /usr/src/myapp/qemu/qemu-system-arm.exe -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd /usr/src/myapp/qemu/qemu-system-arm.exe -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none
 
       - name: List files
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l

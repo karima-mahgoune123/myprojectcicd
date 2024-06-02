@@ -1,13 +1,14 @@
 # Utiliser une image de base appropriée
 FROM ubuntu:latest
 
-# Installer les outils nécessaires, y compris QEMU
+# Installer les outils nécessaires, y compris QEMU et l'utilitaire `file`
 RUN apt-get update && apt-get install -y \
     gcc \
     make \
     cmake \
     libcunit1 libcunit1-doc libcunit1-dev \
-    qemu-system-arm
+    qemu-system-arm \
+    file
 
 # Définir le répertoire de travail
 WORKDIR /usr/src/myapp
@@ -20,9 +21,6 @@ COPY qemu/qemu-system-arm.exe /usr/src/myapp/qemu/qemu-system-arm.exe
 
 # Rendre le fichier QEMU exécutable
 RUN chmod +x /usr/src/myapp/qemu/qemu-system-arm.exe
-
-# Vérifier les permissions du fichier QEMU
-RUN ls -l /usr/src/myapp/qemu/qemu-system-arm.exe
 
 # Compiler les fichiers source
 RUN gcc -Wall -g -I/usr/include -c SWC.c -o SWC.o
