@@ -44,7 +44,7 @@ jobs:
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd file /usr/src/myapp/qemu/qemu-system-arm.exe
 
       - name: Emulate my_project.bin
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none -audiodev none,id=audio0
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-system-arm -M versatilepb -kernel my_project.bin -nographic -serial mon:stdio -display none -no-audio
 
       - name: List files
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l
