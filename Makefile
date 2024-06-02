@@ -1,5 +1,5 @@
-# Définir le compilateur
-CC = gcc
+# Définir le compilateur pour ARM
+CC = arm-linux-gnueabi-gcc
 
 # Définir les options de compilation
 CFLAGS = -Wall -g -I/usr/include
@@ -8,7 +8,7 @@ CFLAGS = -Wall -g -I/usr/include
 OBJ = SWC.o TestProtocol.o
 
 # Définir la cible
-TARGET = my_project.bin
+TARGET = my_project_arm.bin
 
 # Règles de compilation
 all: $(TARGET)
@@ -20,7 +20,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 test:
-	./my_project.bin
+	./my_project_arm.bin
 
 clean:
 	rm -f $(OBJ) $(TARGET)
