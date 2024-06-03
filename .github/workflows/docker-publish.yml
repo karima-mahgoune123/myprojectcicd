@@ -26,9 +26,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image for ARM
-        run: docker buildx build --platform linux/arm/v7 -t karimamahgoune123/myprojectcicd .
+        run: docker buildx build --platform linux/arm/v7 -t karimamahgoune123/myprojectcicd --load .
+
+      - name: Verify Docker image exists
+        run: docker image inspect karimamahgoune123/myprojectcicd:latest
 
       - name: Push Docker image for ARM
+        if: success() # Push only if the build was successful
         run: docker push karimamahgoune123/myprojectcicd:latest
 
       - name: Run make
