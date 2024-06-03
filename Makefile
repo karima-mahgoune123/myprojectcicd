@@ -19,8 +19,8 @@ $(TARGET): $(OBJ)
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-test:
-	./my_project_arm.bin
+test: $(TARGET)
+	qemu-arm -L /usr/arm-linux-gnueabi ./$(TARGET)
 
 clean:
 	rm -f $(OBJ) $(TARGET)

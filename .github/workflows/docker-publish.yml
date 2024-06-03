@@ -16,7 +16,7 @@ jobs:
       - name: Set up QEMU for ARM emulation
         uses: docker/setup-qemu-action@v3
 
-      - name: Set up Docker Buildx for ARM architecture
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Login to DockerHub
@@ -31,25 +31,16 @@ jobs:
       - name: Push Docker image for ARM
         run: docker push karimamahgoune123/myprojectcicd
 
-      - name: Run make
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make
-
-      - name: Run tests
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make test
-
-      - name: Verify my_project.bin presence
+      - name: Verify my_project_arm.bin presence
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l my_project_arm.bin
 
-      - name: Verify my_project.bin file type
+      - name: Verify my_project_arm.bin file type
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd file my_project_arm.bin
 
-      - name: Emulate my_project.bin with QEMU for ARM
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-arm ./my_project_arm.bin
+      - name: Emulate my_project_arm.bin with QEMU for ARM
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd qemu-arm -L /usr/arm-linux-gnueabi ./my_project_arm.bin
 
-      - name: List files
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l
-
-      - name: Upload my_project.bin as artifact
+      - name: Upload my_project_arm.bin as artifact
         uses: actions/upload-artifact@v3
         with:
           name: my_project_arm.bin
