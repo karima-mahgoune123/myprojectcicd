@@ -29,7 +29,7 @@ jobs:
         run: docker buildx build --platform linux/arm/v7 -t karimamahgoune123/myprojectcicd .
 
       - name: Push Docker image for ARM
-        run: docker push karimamahgoune123/myprojectcicd
+        run: ddocker push karimamahgoune123/myprojectcicd:latest
 
       - name: Verify my_project_arm.bin presence
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l my_project_arm.bin
