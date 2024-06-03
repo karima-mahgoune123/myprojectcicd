@@ -4,7 +4,7 @@ FROM ubuntu:latest
 # Installer les outils nécessaires, y compris QEMU
 RUN apt-get update && apt-get install -y \
     gcc \
-    gcc-arm-linux-gnueabi \
+    gcc-arm-linux-gnueabihf \
     libc6-dev-armel-cross \
     make \
     cmake \
