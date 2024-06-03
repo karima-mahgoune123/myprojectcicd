@@ -29,7 +29,7 @@ jobs:
         run: docker buildx build --platform linux/arm/v7 -t karimamahgoune123/myprojectcicd .
 
       - name: Push Docker image for ARM
-        run: docker push karimamahgoune123/myprojectcicd
+        run: docker push karimamahgoune123/myprojectcicd:latest
 
       - name: Run make
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd make
