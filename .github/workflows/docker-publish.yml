@@ -53,6 +53,4 @@ jobs:
       - name: List files
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/myprojectcicd ls -l
 
-      - name: Deploy to server
-        if: success()
-        run: ssh user@server "docker pull karimamahgoune123/myprojectcicd:latest && docker run -d karimamahgoune123/myprojectcicd:latest"
+        
