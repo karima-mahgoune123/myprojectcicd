@@ -1,5 +1,16 @@
-# Utiliser une image de base avec les outils nécessaires déjà installés
-FROM example/base-image:latest
+# Utiliser une image de base Ubuntu
+FROM ubuntu:latest
+
+# Installer les outils nécessaires, y compris QEMU
+RUN apt-get update && apt-get install -y \
+    gcc \
+    gcc-arm-linux-gnueabi \
+    libc6-dev-armel-cross \
+    make \
+    cmake \
+    libcunit1 libcunit1-doc libcunit1-dev \
+    qemu-system-arm \
+    file
 
 # Définir le répertoire de travail
 WORKDIR /usr/src/myapp
