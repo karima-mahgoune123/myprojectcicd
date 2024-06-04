@@ -1,15 +1,15 @@
 # Utiliser une image de base avec les outils nécessaires déjà installés
-FROM ubuntu:20.04
+FROM ubuntu:latest
 
 # Installer les outils nécessaires, y compris QEMU
 RUN apt-get update && apt-get install -y \
     gcc \
-    libc6-dev \
     make \
     cmake \
     libcunit1 libcunit1-doc libcunit1-dev \
-    qemu-user \
-    file
+    qemu-system-arm \
+    file \
+    gcovr
 
 # Définir le répertoire de travail
 WORKDIR /usr/src/myapp
